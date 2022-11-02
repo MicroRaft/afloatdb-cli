@@ -1,80 +1,65 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"log"
-	"time"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 
 	kv "io.microraft/afloatdb/kv"
 )
 
 var (
-	serverAddr = flag.String("server", "localhost:6701", "The server address in the format of host:port")
-	key        = flag.String("key", "", "key to insert. must be non-empty for put|set|get")
-	value      = flag.String("value", "", "value to insert. must be non-empty for put|set")
-	op         = flag.String("op", "get", "operation to execute. one of put|set|get|size")
+	serverAddr  = flag.String("server", "localhost:6701", "The server address in the format of host:port")
+	key         = flag.String("key", "", "key to insert. must be non-empty for put|set|get")
+	value       = flag.String("value", "", "value to insert. must be non-empty for put|set")
+	op          = flag.String("op", "get", "operation to execute. one of put|set|get|size")
+	timeoutSecs = flag.Int64("timeoutSecs", 10, "timeout in seconds")
 )
+
+const sizeOpName = "size"
+const putOpName = "put"
+const setOpName = "set"
+const getOpName = "get"
 
 func main() {
 	flag.Parse()
-	var opts []grpc.DialOption
-	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	client, err := kv.NewClient(*serverAddr, *timeoutSecs)
 
-	log.Println("Connecting to", *serverAddr)
-
-	conn, err := grpc.Dial(*serverAddr, opts...)
 	if err != nil {
-		log.Fatalf("Could not connect to server! Error: %v", err)
+		log.Fatal(err)
 	}
-	defer conn.Close()
-	client := kv.NewKVRequestHandlerClient(conn)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+
+	defer client.Close()
 
 	switch *op {
-	case "size":
-		resp, err := client.Size(ctx, &kv.SizeRequest{})
+	case sizeOpName:
+		size, err := client.Size()
 		if err != nil {
 			log.Fatalln(err)
 		}
-
-		log.Println("Size:", resp.GetSizeResult().Size)
-	case "put":
+		log.Println("Size:", size)
+	case putOpName:
 		validateNonEmpty(*key, "key")
 		validateNonEmpty(*value, "value")
-		resp, err := client.Put(ctx, &kv.PutRequest{
-			Key: *key,
-			Val: &kv.Val{Val: &kv.Val_Str{*value}},
-		})
+		oldVal, err := client.PutString(*key, *value)
 		if err != nil {
 			log.Fatalln(err)
 		}
-
-		log.Println("Old value:", resp.GetPutResult().OldVal)
-	case "set":
+		log.Println("Old value:", oldVal)
+	case setOpName:
 		validateNonEmpty(*key, "key")
 		validateNonEmpty(*value, "value")
-		resp, err := client.Set(ctx, &kv.SetRequest{
-			Key: *key,
-			Val: &kv.Val{Val: &kv.Val_Str{*value}},
-		})
-
+		oldValueExists, err := client.SetString(*key, *value)
 		if err != nil {
 			log.Fatalln(err)
 		}
-		log.Println("Has old value:", resp.GetSetResult().OldValExisted)
-	case "get":
+		log.Println("Has old value:", oldValueExists)
+	case getOpName:
 		validateNonEmpty(*key, "key")
-		resp, err := client.Get(ctx, &kv.GetRequest{Key: *key})
+		value, err := client.Get(*key)
 		if err != nil {
 			log.Fatalln(err)
 		}
-
-		log.Println("Value:", resp.GetGetResult().Val)
+		log.Println("Value:", value)
 	default:
 		log.Fatalln("Invalid op:", *op)
 	}
