@@ -18,10 +18,10 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// KVRequestHandlerClient is the client API for KVRequestHandler service.
+// KVServiceClient is the client API for KVService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type KVRequestHandlerClient interface {
+type KVServiceClient interface {
 	Put(ctx context.Context, in *PutRequest, opts ...grpc.CallOption) (*KVResponse, error)
 	Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*KVResponse, error)
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*KVResponse, error)
@@ -33,99 +33,99 @@ type KVRequestHandlerClient interface {
 	Clear(ctx context.Context, in *ClearRequest, opts ...grpc.CallOption) (*KVResponse, error)
 }
 
-type kVRequestHandlerClient struct {
+type kVServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewKVRequestHandlerClient(cc grpc.ClientConnInterface) KVRequestHandlerClient {
-	return &kVRequestHandlerClient{cc}
+func NewKVServiceClient(cc grpc.ClientConnInterface) KVServiceClient {
+	return &kVServiceClient{cc}
 }
 
-func (c *kVRequestHandlerClient) Put(ctx context.Context, in *PutRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Put(ctx context.Context, in *PutRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/put", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/put", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *kVRequestHandlerClient) Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/set", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/set", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *kVRequestHandlerClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/get", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *kVRequestHandlerClient) Contains(ctx context.Context, in *ContainsRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Contains(ctx context.Context, in *ContainsRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/contains", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/contains", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *kVRequestHandlerClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *kVRequestHandlerClient) Remove(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Remove(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/remove", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/remove", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *kVRequestHandlerClient) Replace(ctx context.Context, in *ReplaceRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Replace(ctx context.Context, in *ReplaceRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/replace", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/replace", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *kVRequestHandlerClient) Size(ctx context.Context, in *SizeRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Size(ctx context.Context, in *SizeRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/size", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/size", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *kVRequestHandlerClient) Clear(ctx context.Context, in *ClearRequest, opts ...grpc.CallOption) (*KVResponse, error) {
+func (c *kVServiceClient) Clear(ctx context.Context, in *ClearRequest, opts ...grpc.CallOption) (*KVResponse, error) {
 	out := new(KVResponse)
-	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVRequestHandler/clear", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/io.afloatdb.kv.proto.KVService/clear", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// KVRequestHandlerServer is the server API for KVRequestHandler service.
-// All implementations must embed UnimplementedKVRequestHandlerServer
+// KVServiceServer is the server API for KVService service.
+// All implementations must embed UnimplementedKVServiceServer
 // for forward compatibility
-type KVRequestHandlerServer interface {
+type KVServiceServer interface {
 	Put(context.Context, *PutRequest) (*KVResponse, error)
 	Set(context.Context, *SetRequest) (*KVResponse, error)
 	Get(context.Context, *GetRequest) (*KVResponse, error)
@@ -135,257 +135,257 @@ type KVRequestHandlerServer interface {
 	Replace(context.Context, *ReplaceRequest) (*KVResponse, error)
 	Size(context.Context, *SizeRequest) (*KVResponse, error)
 	Clear(context.Context, *ClearRequest) (*KVResponse, error)
-	mustEmbedUnimplementedKVRequestHandlerServer()
+	mustEmbedUnimplementedKVServiceServer()
 }
 
-// UnimplementedKVRequestHandlerServer must be embedded to have forward compatible implementations.
-type UnimplementedKVRequestHandlerServer struct {
+// UnimplementedKVServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedKVServiceServer struct {
 }
 
-func (UnimplementedKVRequestHandlerServer) Put(context.Context, *PutRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Put(context.Context, *PutRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Put not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) Set(context.Context, *SetRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Set(context.Context, *SetRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Set not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) Get(context.Context, *GetRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Get(context.Context, *GetRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) Contains(context.Context, *ContainsRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Contains(context.Context, *ContainsRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Contains not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) Delete(context.Context, *DeleteRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Delete(context.Context, *DeleteRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) Remove(context.Context, *RemoveRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Remove(context.Context, *RemoveRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Remove not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) Replace(context.Context, *ReplaceRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Replace(context.Context, *ReplaceRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Replace not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) Size(context.Context, *SizeRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Size(context.Context, *SizeRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Size not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) Clear(context.Context, *ClearRequest) (*KVResponse, error) {
+func (UnimplementedKVServiceServer) Clear(context.Context, *ClearRequest) (*KVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Clear not implemented")
 }
-func (UnimplementedKVRequestHandlerServer) mustEmbedUnimplementedKVRequestHandlerServer() {}
+func (UnimplementedKVServiceServer) mustEmbedUnimplementedKVServiceServer() {}
 
-// UnsafeKVRequestHandlerServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to KVRequestHandlerServer will
+// UnsafeKVServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to KVServiceServer will
 // result in compilation errors.
-type UnsafeKVRequestHandlerServer interface {
-	mustEmbedUnimplementedKVRequestHandlerServer()
+type UnsafeKVServiceServer interface {
+	mustEmbedUnimplementedKVServiceServer()
 }
 
-func RegisterKVRequestHandlerServer(s grpc.ServiceRegistrar, srv KVRequestHandlerServer) {
-	s.RegisterService(&KVRequestHandler_ServiceDesc, srv)
+func RegisterKVServiceServer(s grpc.ServiceRegistrar, srv KVServiceServer) {
+	s.RegisterService(&KVService_ServiceDesc, srv)
 }
 
-func _KVRequestHandler_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PutRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Put(ctx, in)
+		return srv.(KVServiceServer).Put(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/put",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/put",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Put(ctx, req.(*PutRequest))
+		return srv.(KVServiceServer).Put(ctx, req.(*PutRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _KVRequestHandler_Set_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Set_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Set(ctx, in)
+		return srv.(KVServiceServer).Set(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/set",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/set",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Set(ctx, req.(*SetRequest))
+		return srv.(KVServiceServer).Set(ctx, req.(*SetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _KVRequestHandler_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Get(ctx, in)
+		return srv.(KVServiceServer).Get(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/get",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Get(ctx, req.(*GetRequest))
+		return srv.(KVServiceServer).Get(ctx, req.(*GetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _KVRequestHandler_Contains_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Contains_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ContainsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Contains(ctx, in)
+		return srv.(KVServiceServer).Contains(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/contains",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/contains",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Contains(ctx, req.(*ContainsRequest))
+		return srv.(KVServiceServer).Contains(ctx, req.(*ContainsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _KVRequestHandler_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Delete(ctx, in)
+		return srv.(KVServiceServer).Delete(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/delete",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Delete(ctx, req.(*DeleteRequest))
+		return srv.(KVServiceServer).Delete(ctx, req.(*DeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _KVRequestHandler_Remove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Remove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RemoveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Remove(ctx, in)
+		return srv.(KVServiceServer).Remove(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/remove",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/remove",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Remove(ctx, req.(*RemoveRequest))
+		return srv.(KVServiceServer).Remove(ctx, req.(*RemoveRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _KVRequestHandler_Replace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Replace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReplaceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Replace(ctx, in)
+		return srv.(KVServiceServer).Replace(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/replace",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/replace",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Replace(ctx, req.(*ReplaceRequest))
+		return srv.(KVServiceServer).Replace(ctx, req.(*ReplaceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _KVRequestHandler_Size_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Size_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SizeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Size(ctx, in)
+		return srv.(KVServiceServer).Size(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/size",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/size",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Size(ctx, req.(*SizeRequest))
+		return srv.(KVServiceServer).Size(ctx, req.(*SizeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _KVRequestHandler_Clear_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KVService_Clear_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ClearRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(KVRequestHandlerServer).Clear(ctx, in)
+		return srv.(KVServiceServer).Clear(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/io.afloatdb.kv.proto.KVRequestHandler/clear",
+		FullMethod: "/io.afloatdb.kv.proto.KVService/clear",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KVRequestHandlerServer).Clear(ctx, req.(*ClearRequest))
+		return srv.(KVServiceServer).Clear(ctx, req.(*ClearRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// KVRequestHandler_ServiceDesc is the grpc.ServiceDesc for KVRequestHandler service.
+// KVService_ServiceDesc is the grpc.ServiceDesc for KVService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var KVRequestHandler_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "io.afloatdb.kv.proto.KVRequestHandler",
-	HandlerType: (*KVRequestHandlerServer)(nil),
+var KVService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "io.afloatdb.kv.proto.KVService",
+	HandlerType: (*KVServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "put",
-			Handler:    _KVRequestHandler_Put_Handler,
+			Handler:    _KVService_Put_Handler,
 		},
 		{
 			MethodName: "set",
-			Handler:    _KVRequestHandler_Set_Handler,
+			Handler:    _KVService_Set_Handler,
 		},
 		{
 			MethodName: "get",
-			Handler:    _KVRequestHandler_Get_Handler,
+			Handler:    _KVService_Get_Handler,
 		},
 		{
 			MethodName: "contains",
-			Handler:    _KVRequestHandler_Contains_Handler,
+			Handler:    _KVService_Contains_Handler,
 		},
 		{
 			MethodName: "delete",
-			Handler:    _KVRequestHandler_Delete_Handler,
+			Handler:    _KVService_Delete_Handler,
 		},
 		{
 			MethodName: "remove",
-			Handler:    _KVRequestHandler_Remove_Handler,
+			Handler:    _KVService_Remove_Handler,
 		},
 		{
 			MethodName: "replace",
-			Handler:    _KVRequestHandler_Replace_Handler,
+			Handler:    _KVService_Replace_Handler,
 		},
 		{
 			MethodName: "size",
-			Handler:    _KVRequestHandler_Size_Handler,
+			Handler:    _KVService_Size_Handler,
 		},
 		{
 			MethodName: "clear",
-			Handler:    _KVRequestHandler_Clear_Handler,
+			Handler:    _KVService_Clear_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -1,2 +1,2 @@
-# afloatdb-kv-cli
-Basic KV client CLI for experimentation and testing
+# afloatdb-cli
+Basic CLI for experimentation and testing of AfloatDB

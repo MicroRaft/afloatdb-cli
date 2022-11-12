@@ -7,18 +7,18 @@ import (
 	kv "io.microraft/afloatdb/kv"
 )
 
-var (
-	serverAddr  = flag.String("server", "localhost:6701", "The server address in the format of host:port")
-	key         = flag.String("key", "", "key to insert. must be non-empty for put|set|get")
-	value       = flag.String("value", "", "value to insert. must be non-empty for put|set")
-	op          = flag.String("op", "get", "operation to execute. one of put|set|get|size")
-	timeoutSecs = flag.Int64("timeoutSecs", 10, "timeout in seconds")
-)
-
 const sizeOpName = "size"
 const putOpName = "put"
 const setOpName = "set"
 const getOpName = "get"
+
+var (
+	serverAddr  = flag.String("server", "localhost:6701", "The server address in the format of host:port")
+	key         = flag.String("key", "", "key to insert. must be non-empty for put|set|get")
+	value       = flag.String("value", "", "value to insert. must be non-empty for put|set")
+	op          = flag.String("op", getOpName, "operation to execute. one of "+getOpName+"|"+setOpName+"|"+putOpName+"|"+sizeOpName)
+	timeoutSecs = flag.Int64("timeoutSecs", 10, "timeout in seconds")
+)
 
 func main() {
 	flag.Parse()
